@@ -68,48 +68,10 @@ Use aliasing to resolve. tbc
 {% code title="main.kk" %}
 ```typescript
 import "./colors.kk" where 
-   map = map2
+   map = map2,
+   map = _
    
 import "./util/date.kk"
-```
-{% endcode %}
-
-
-
-```typescript
-import '.' Colors
-
-//  We can use `colors` directly
-do colors.print()
-
-// Error
-do Colors::colors.print() 
-// ^^^^^^^^ Unnecessary namespace qualification
-```
-
-However, in case of name clashes, namespace qualification is necessary, for example:
-
-```typescript
-import '.' Colors
-import '.' Date
-
-do Colors::foo.print()
-do Date::foo.print()
-```
-
-### Current  module qualification
-
-When we defined a function F that has the same name with one of the imported member, and we want to use F in the current file, we can use the the filename to refer to the current module \(i.e. file\).
-
-For instance \(continue from the example code above\):
-
-{% code title="Test.kk" %}
-```typescript
-import "." Date
-
-let foo = [1]
-
-do Test::foo.print()
 ```
 {% endcode %}
 
@@ -130,24 +92,12 @@ Importing from Github is also possible, but we need to specify the commit hash o
 import "https://github.com/kk/stdlib/tree/v0.0.1" String
 ```
 
-### Scope resolution operator precedence
-
-The scope resolution operator \(`::`\) has higher precedence than dot operator \(`.`\).
-
-Because of that, the following code is valid:
-
-```typescript
-do [1, 2, 3]
-  .Array::map(.plus(2))
-  .Array::filter(.`<`(2))
-```
-
 ### Re-export
 
 We can import a namespace and export it, for example:
 
 ```typescript
-import "." export Foo
+export "./hello.kk"
 ```
 
 ### Ambiguous Resolution
