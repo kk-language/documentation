@@ -54,8 +54,8 @@ The following are different ways on how we can import the exported members from 
 
 {% code title="main.kk" %}
 ```typescript
-import "./colors.kk"
-import "./util/date.kk"
+from "./colors.kk" import colors
+from "./util/date.kk" import is_monday
 ```
 {% endcode %}
 
