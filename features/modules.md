@@ -13,18 +13,18 @@ The import syntax is as follows:
 
 ```c
 IMPORT 
-  = "from" URL "import" NAME ("," NAME)*
+  = "import" URL NAME ("," NAME)*
   
 NAME
   = IDENTIFIER 
-  | IDENTIFIER "as" IDENTIFIER
+  | IDENTIFIER "=" IDENTIFIER
 ```
 
 For example, suppose we have the following files, where name that ends with `/` represent a folder:
 
 ```text
 root/
-  cain.kk
+  main.kk
   Colors.kk
   util/
     date.kk
@@ -52,8 +52,8 @@ The following are different ways on how we can import the exported members from 
 
 {% code title="main.kk" %}
 ```typescript
-from "./colors.kk" import colors
-from "./util/date.kk" import is_monday
+import "./colors.kk" colors
+import "./util/date.kk" is_monday
 ```
 {% endcode %}
 
@@ -64,7 +64,7 @@ Note that when a file is imported, all of its exported member will be brought in
 When we want to import two namespaces of the same name, we must alias one of them with a different name. For example \(arbitrary\):
 
 ```typescript
-from "./util/date.kk" import is_monday as is_monday_2
+import "./util/date.kk" is_monday = is_monday_2
 ```
 
 ## Importing from Github
