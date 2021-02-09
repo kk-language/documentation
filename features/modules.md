@@ -59,7 +59,7 @@ from "./util/date.kk" import is_monday
 
 Note that when a file is imported, all of its exported member will be brought into the current scope.
 
-### Import aliasing
+## Import aliasing
 
 When we want to import two namespaces of the same name, we must alias one of them with a different name. For example \(arbitrary\):
 
@@ -67,7 +67,7 @@ When we want to import two namespaces of the same name, we must alias one of the
 from "./util/date.kk" import is_monday as is_monday_2
 ```
 
-### Importing from Github
+## Importing from Github
 
 Importing from Github is also possible, but we need to specify the commit hash or the tagname:
 
@@ -76,7 +76,7 @@ from "https://github.com/kk/stdlib/tree/v0.0.1"
   import String
 ```
 
-### Re-export
+## Re-export
 
 We can import a namespace and export it, for example:
 
@@ -84,7 +84,7 @@ We can import a namespace and export it, for example:
 from "./hello.kk" export foo
 ```
 
-### Public Export
+## Public Export \(Draft\)
 
 This is for declaring value or function that will be consumed by the public, so that the KK compiler will not warn them as being unused.
 
@@ -94,7 +94,7 @@ This feature can also allow automatic semantic versioning, by looking into the s
 public export x = 2
 ```
 
-### Dead code elimination
+## Dead code elimination \(WIP\)
 
 All unused declarations will be removed during transpilation.
 
