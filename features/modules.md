@@ -69,11 +69,19 @@ import "./util/date.kk" is_monday = is_monday_2
 
 ## Importing from Github
 
-Importing from Github is also possible, but we need to specify the commit hash or the tagname:
+Importing from Github is also possible, but we need to specify the commit hash or the tag name.   
+
+
+{% hint style="info" %}
+Why is commit hash or tag necessary?  
+Refer [https://medium.com/@alex.birsan/dependency-confusion-4a5d60fec610](https://medium.com/@alex.birsan/dependency-confusion-4a5d60fec610)
+{% endhint %}
 
 ```typescript
-from "https://github.com/kk/stdlib/tree/v0.0.1" 
-  import String
+import "https://github.com/kk/stdlib/tree/v0.0.1" 
+    length,
+    slice,
+    map
 ```
 
 ## Re-export
