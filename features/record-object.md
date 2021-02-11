@@ -16,9 +16,9 @@ let people: {
     title: String
   }
 } = {
-  name = "Lee",
-  job = {
-    title = "Engineer"
+  name "Lee"
+  job {
+    title "Engineer"
   }
 }
 ```
