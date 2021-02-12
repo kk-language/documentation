@@ -37,6 +37,11 @@ And their respective contents:
 ```typescript
 export let colors = ["red", "green", "blue"]
 export let foo = 1
+export enum Color = Red() Green()
+export type People = {name: String age: Integer}
+
+export let hello = \(_:String) => "i'm string"
+export let hello = \(_:Null) => "i'm null"
 ```
 {% endtab %}
 
@@ -52,12 +57,15 @@ The following are different ways on how we can import the exported members from 
 
 {% code title="main.kk" %}
 ```typescript
-import "./colors.kk" colors
-import "./util/date.kk" is_monday
+import  
+    let colors: [String]
+    let hello: | Null -> String
+    let hello: | String -> String
+    enum Color
+    type People
+from "./colors.kk"
 ```
 {% endcode %}
-
-Note that when a file is imported, all of its exported member will be brought into the current scope.
 
 ## Import aliasing
 
