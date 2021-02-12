@@ -10,17 +10,33 @@ Record if KK is very similar to Typescript object literal except:
 For example:
 
 ```typescript
-let people: {
-  name: String,
-  job: {
-    title: String
+let people:{
+  name:String
+  job:{
+    title:String
   }
 } = {
-  name "Lee"
-  job {
-    title "Engineer"
+  name="Lee"
+  job={
+    title="Engineer"
   }
 }
+```
+
+### Record Punning
+
+Instead of writing:
+
+```typescript
+let x = 1
+let y = {x=x}
+```
+
+We can write:
+
+```typescript
+let x = 1
+let y = {x}
 ```
 
 ### Property Type Annotation
@@ -29,8 +45,8 @@ Since equals `=`  is used instead of colon `:`, we can easily annotate the type 
 
 ```typescript
 let people = {
-  name: String = "Lee",
-  age = 5
+  name:String="Lee"
+  age=5
 }
 ```
 
@@ -41,7 +57,7 @@ Because of this syntax decision, we can destructure an object with types without
 let f = ({a, b: c}: {a: String, b: String}) => ...
 
 // kk
-let f = \{a: String, b: String = c} => ...
+let f = | {a:String b:String=c} => ...
 ```
 
 ### No subtyping
@@ -50,10 +66,10 @@ In other words, no extra field is allowed. For example the following code will c
 
 ```typescript
 let ball 
-  : {color: String} 
+  : {color:String} 
   = {
-    color = "Red", 
-    price = 9
+    color="Red" 
+    price=9
   } // Error, "price" field is extraneous 
 ```
 
@@ -62,8 +78,8 @@ let ball
 We can update a record using the `.{}` syntax:
 
 ```typescript
-let people = {name = "Lee", age = 6}
-let new_people = people.{ name = "Wee" }
+let people = {name="Lee" age=6}
+let new_people = people.{ name "Wee" }
 do people.log() // {name: "Lee", age: 6}
 do new_people.log() // {name: "Wee", age: 6}
 ```
@@ -81,14 +97,14 @@ The second `expression` must be a function, with the type of `\A -> A` where `A`
 For example:
 
 ```typescript
-let state0 = {count = 1}
+let state0 = {count: 1}
 
-let state1 = state0.{count => \x => x.add(1)}
+let state1 = state0.{count=>\x => x.add(1)}
 
-let state2 = state1.{count => .add(2)}
+let state2 = state1.{count=>.add(2)}
 
 let square = \x => x.multiply(x)
-let state3 = state2.{count => square}
+let state3 = state2.{count=>square}
 
 do state0.count.print() // 1
 do state1.count.print() // 2
