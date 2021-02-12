@@ -57,13 +57,12 @@ The following are different ways on how we can import the exported members from 
 
 {% code title="main.kk" %}
 ```typescript
-import  
-    let colors: [String]
-    let hello: | Null -> String
-    let hello: | String -> String
-    enum Color
-    type People
-from "./colors.kk"
+import "./colors.kk"
+    colors
+    foo
+    Color
+    People
+    hello
 ```
 {% endcode %}
 
