@@ -4,19 +4,17 @@ Record if KK is very similar to Typescript object literal except:
 
 * all properties are immutable
 * no subtyping
-* use equal instead of colon
-* use single-quote instead of dot for accessing
 
 For example:
 
 ```typescript
 let people: {
-  name: String,
+  name: String
   job: {
     title: String
   }
 } = {
-  name "Lee"，
+  name "Lee"
   job {
     title "Engineer"
   }
@@ -36,7 +34,7 @@ We can write:
 
 ```typescript
 let x = 1
-let y = {x}
+let y = {x,}
 ```
 
 ### Property Type Annotation
@@ -68,7 +66,7 @@ In other words, no extra field is allowed. For example the following code will c
 let ball 
   : {color: String} 
   = {
-    color "Red",
+    color "Red"
     price 9
   } // Error, "price" field is extraneous 
 ```
@@ -84,32 +82,32 @@ do people.log() // {name: "Lee", age: 6}
 do new_people.log() // {name: "Wee", age: 6}
 ```
 
-We can also update a value of a property based on its previous value using the `{ => }` notation. The syntax is as follows:
+We can also update a value of a property based on its previous value. The syntax is as follows:
 
 ```c
-expression '.' '{' propertyName '=>' expression '}'
+expression '.' '{' property_name dot_expression '}'
 ```
 
 {% hint style="info" %}
-The second `expression` must be a function, with the type of `\A -> A` where `A` is the type of `expression.propertyName.`
+Dot expression means any of the following:
+
+1. Record property access
+2. Function invocation
+3. Record update
 {% endhint %}
 
 For example:
 
 ```typescript
-let state0 = { count 1 }
+let a = {people {name "Bob" age 6}}
 
-let state1 = state0.{ count.add(1) }
+let b = a.{people.{name "John"}}
 
-let state2 = state1.{ count.add(2) }
+let c = a.{people.{age.plus(1)}}
 
-let square = \x => x.multiply(x)
-let state3 = state2.{ count.square() }
-
-do state0.count.print() // 1
-do state1.count.print() // 2
-do state2.count.print() // 4
-do state3.count.print() // 16
+do a.print() // {people {name "Bob" age 6}}
+do b.print() // {people {name "John" age 6}}
+do c.print() // {people {name "Bob" age 7}}
 ```
 
 ```typescript
