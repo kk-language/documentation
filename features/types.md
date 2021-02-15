@@ -73,16 +73,11 @@ Refer to [variant](variants-union.md).
 
 ### Generics
 
-A type can take type parameters, however, unlike TypeScript, every type parameters must be named, for example:
-
 ```typescript
 type Box<Type> = {value: Type}
 
-// Invalid
-type NumberBox = Box<number>
-
 // Valid
-type NumberBox = Box<Type = number>
+type NumberBox = Box<Integer>
 ```
 
 #### Generic functions
@@ -102,7 +97,7 @@ let foo = <T>(
 In KK, type variables can only be defined before the `=` sign, for example:
 
 ```typescript
-let identity<T> = \(x: T) -> T => x
+let identity<T> = | x: T -> T => x
 ```
 
 

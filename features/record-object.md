@@ -30,7 +30,7 @@ let x = 1
 let y = {x x}
 ```
 
-We can write:
+We use pun the property name with comma:
 
 ```typescript
 let x = 1
@@ -55,7 +55,7 @@ Because of this syntax decision, we can destructure an object with types without
 let f = ({a, b: c}: {a: String, b: String}) => ...
 
 // kk
-let f = | {a: String, b: String c} => ...
+let f = | {a: String b: String c} => ...
 ```
 
 ### No subtyping
@@ -108,16 +108,6 @@ let c = a.{people.{age.plus(1)}}
 do a.print() // {people {name "Bob" age 6}}
 do b.print() // {people {name "John" age 6}}
 do c.print() // {people {name "Bob" age 7}}
-```
-
-```typescript
-// Example syntax
-do "Hello world".replace({each "Hello" with "bye"})
-do [1 2 3].slice({from 1 to 2})
-do [1 2 3 4]
-  .filter(is_even)
-  .map(|.power(2))
-  .fold({from 0 with plus})
 ```
 
 {% hint style="danger" %}
