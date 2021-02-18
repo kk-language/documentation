@@ -1,19 +1,12 @@
 # Modules \(WIP\)
 
-## Namespace
-
-Before we talk about modules, we need to understand what is considered a namespace in KK:
-
-1. Name of file that has the `kk` extension
-2. Name of [enum](variants-union.md)
-
 ## Import
 
 The import syntax is as follows:
 
 ```c
 IMPORT 
-  = "import" URL NAME ("," NAME)*
+  = "import" URL NAME+
   
 NAME
   = IDENTIFIER 
@@ -35,13 +28,13 @@ And their respective contents:
 {% tabs %}
 {% tab title="colors.kk" %}
 ```typescript
-export let colors = ["red", "green", "blue"]
+export let colors = ["red" "green" "blue"]
 export let foo = 1
 export enum Color = Red() Green()
 export type People = {name: String age: Integer}
 
-export let hello = \(_:String) => "i'm string"
-export let hello = \(_:Null) => "i'm null"
+export let hello = |_:String => "i'm string"
+export let hello = |_:Null => "i'm null"
 ```
 {% endtab %}
 
@@ -66,6 +59,28 @@ import "./colors.kk"
 ```
 {% endcode %}
 
+## Importing enums
+
+Note that when an enum is exported, all of it's constructors are also exported, also when we import an enum, all of it's constructors will be brought into the current scope.   
+For example, suppose we have a `Color` enum in `./color.kk` :
+
+{% code title="./color.kk" %}
+```typescript
+enum Color = Red Green
+```
+{% endcode %}
+
+When we import `Color` into `./main.kk` , then we can use the constructors already:
+
+{% code title="./main.kk" %}
+```typescript
+import "./color.kk" Color
+
+// Note that `Red` can be used here
+do Red.print()
+```
+{% endcode %}
+
 ## Import aliasing
 
 When we want to import two namespaces of the same name, we must alias one of them with a different name. For example \(arbitrary\):
@@ -74,7 +89,7 @@ When we want to import two namespaces of the same name, we must alias one of the
 import "./util/date.kk" is_monday = is_monday_2
 ```
 
-## Importing from Github
+## Importing from Github \(WIP\)
 
 Importing from Github is also possible, but we need to specify the commit hash or the tag name.   
 
@@ -91,7 +106,7 @@ import "https://github.com/kk/stdlib/tree/v0.0.1"
     map
 ```
 
-## Re-export
+## Re-export \(draft\)
 
 We can import a namespace and export it, for example:
 
