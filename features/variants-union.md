@@ -8,21 +8,21 @@ Enums in KK is also known as sum types or tagged union. For example, we can mode
 
 ```typescript
 enum Shape =
-  Circle({radius: number})
-  Rectanlge({width: number, height: number})
-  Nothing()
+  Circle({radius:Float})
+  Rectanlge({width:Float height:Float})
+  Nothing
 ```
 
 Then we can define a function that match over `Shape` , for example:
 
 ```typescript
 let area = 
-  \Circle({radius}) => radius.power(2).times(PI) 
-  \Rectangle({width, height}) => width.times(height)
-  \Nothing() => 0
+  | Circle({radius,}) => radius.power(2.0).times(PI) 
+  | Rectangle({width, height,}) => width.times(height)
+  | Nothing => 0.0
 
 
-do Circle({radius = 12}).area().print()
+do Circle({radius 12.0}).area().print()
 ```
 
 ###  Constructor Disambiguation
@@ -32,20 +32,20 @@ Sometimes, if we have constructors with the same name in different enums, we nee
 Suppose we have two enums:
 
 ```typescript
-enum Food = Apple() Nut() Rice()
-enum Tool = Bolt() Nut() Screw()
+enum Food = Apple Nut Rice
+enum Tool = Bolt Nut Screw
 ```
 
 Using `Nut` directly will result in error.
 
 ```typescript
-let x = Nut()
+let x = Nut
       //^^^ Error: which `Nut` do you mean?
 ```
 
 To solve this, we just need to provide type annotations:
 
 ```typescript
-let x: Food = Nut()
+let x: Food = Nut
 ```
 

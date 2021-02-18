@@ -149,12 +149,12 @@ Every cases of a union must be matched if the type is specified. If not it will 
 For example, 
 
 ```typescript
-enum Binary = Zero() One()
+enum Binary = Zero One
 
 let foo =
-  \(Zero(), Zero()) => true
-  \(One(), Zero()) => false
-  \(Zero(), One()) => false
+  | Zero Zero => true
+  | One  Zero => false
+  | Zero One  => false
 //^ Non-exhausitve patterns. Missing:
 //  \(One(), One())
 ```
@@ -165,10 +165,10 @@ If you don't want to handle some cases, you can throw it into the `_` branch.
 For example:
 
 ```typescript
-enum Color = Red() Green() Blue()
+enum Color = Red Green Blue
 let is_red = 
-  \Red() => true
-  \_ => false
+  | Red => true
+  | _   => false
 ```
 
 ## Monadic bindings
@@ -178,16 +178,16 @@ let is_red =
 Sometimes, a pattern match can get really nested, for example:
 
 ```typescript
-let compute_bounds
-  : \[Number] => Option<{lower: number, upper: number}>
-  = \xs => 
+let compute_bounds = | 
+  xs:[Integer] 
+-> Option<{lower:Integer upper:Integer}> => 
   let xs = xs.sort()
   xs.first().match(
-    \Some(lower) => xs.last.match(
-      \Some(upper) => Some({lower, upper})
-      \None() => None()
+    | Some(lower) => xs.last.match(
+      | Some(upper) => Some({lower, upper,})
+      | None => None
     )
-    \None() => None()
+    | None => None
   )
 
 ```
@@ -195,24 +195,24 @@ let compute_bounds
 The code can get really unreadable with  this kind of nesting, to improve the situation we can use monadic bindings:
 
 ```typescript
-let computeBounds
-  : \Array<Number> => Option<{lower: number, upper: number}>
-  = \xs => 
+let computeBounds = |
+  xs:[Integer]  
+-> Option<{lower:Integer upper:Integer}> =>
   let xs = xs.sort()
   let Some(lower) = xs.first()
   let Some(upper) = xs.last()
-  Some({lower, upper}) 
+  Some({lower, upper,}) 
 ```
 
 But in case you still want to handle the non-happy path, you still can do it with `else`:
 
 ```typescript
-let computeBounds = \xs => 
+let computeBounds = | xs => 
     let xs = xs.sort()
     let Some(lower) = xs.first()
-    let Ok(upper) = xs.last() 
-        else \Error(_) => None() 
-    Some({lower, upper})
+    let Ok(upper) = xs.last() else 
+      | Error(_) => None
+    Some({lower, upper,})
 ```
 
 ### Single-case destructuring
@@ -222,10 +222,10 @@ If the destructure pattern we defined on the left is exhaustive, then there will
 For example:
 
 ```typescript
-enum Person = Person({name: String})
+enum Person = Person({name:String})
 
-let name = \person =>
-  let Person({name}) = person
+let name = | person =>
+  let Person({name,}) = person
   name
 ```
 
@@ -234,8 +234,8 @@ Suppose the pattern at line 4 \(of the code above\) is non-exhaustive, then ther
 ```typescript
 enum Person = Person({name: String})
 
-let name = \person =>
-  let Person({name = "Lee" }) = person 
+let name = | person =>
+  let Person({name "Lee"}) = person 
   // Implicitly returning `person` if it does not match this pattern
   name
 //^^^^ Error: Expected `Person`, got `String`
@@ -278,14 +278,14 @@ For example:
 
 ```typescript
 enum Shape = 
-    Square({side: Float})
+    Square({side:Float})
     None
     
 let area = 
-    \Square({side}) => side.`^`(2.0)
-    \None => 0.0
+    | Square({side,}) => side.power(2.0)
+    | None => 0.0
     
-do Square({side= 3.0}).area().print() // 9.0
+do Square({side 3.0}).area().print() // 9.0
 ```
 
 ### Integer
@@ -294,8 +294,8 @@ For example:
 
 ```typescript
 let is_zero = 
-    \0 => true
-    \_ => false
+    | 0 => true
+    | _ => false
 ```
 
 ### Float
@@ -308,8 +308,8 @@ For example:
 
 ```typescript
 let and = 
-  \(true, true) => true
-  \(_, _) => false
+  | true true => true
+  | _ _ => false
 ```
 
 ### String
@@ -318,9 +318,9 @@ For example:
 
 ```typescript
 let is_zero_or_one = 
-    \"zero" => true
-    \"one" => true
-    \_ => false
+  | "zero" => true
+  | "one" => true
+  | _ => false
 ```
 
 ### Character
@@ -329,12 +329,12 @@ For example:
 
 ```typescript
 let is_vowel = 
-    \'a' => true
-    \'e' => true
-    \'i' => true
-    \'o' => true
-    \'u' => true
-    \_ => false
+    | 'a' => true
+    | 'e' => true
+    | 'i' => true
+    | 'o' => true
+    |'u' => true
+    | _ => false
 ```
 
 ### Null
@@ -342,13 +342,13 @@ let is_vowel =
 Although null looks pointless for pattern matching, it actually simplifies the syntax for writing functions that accept null as argument. So instead of writing:
 
 ```typescript
-let foo = \(_: Null) => true
+let foo = |_:Null => true
 ```
 
 We can write:
 
 ```typescript
-let foo = \null => true
+let foo = | null => true
 ```
 
 ### Array
@@ -358,7 +358,7 @@ Unlike,Javascript, array pattern matching can only be one of the two cases below
 | Pattern | Meaning |
 | :--- | :--- |
 | `[]` | This array has exactly zero element. |
-| `[x, ...xs]` | This array has at least one element. |
+| `[x...xs]` | This array has at least one element. |
 
 Therefore, the following valid pattern in Javascript is invalid in KK:
 
@@ -371,22 +371,8 @@ However, the KK version of pattern matching is more powerful, because both `x` a
 For example, if we want to match an array with exactly two elements, we can use the following pattern:
 
 ```typescript
-let [first, ...[second, ...[]]] = myArray
+let [first...[second...[]]] = my_array
 ```
-
-Array pattern matching in KK is pedantic  \(this section is obsoleted\):
-
-| Pattern | Meaning |
-| :--- | :--- |
-| `[]` | This array has zero elements. |
-| `[...]` | This array has  at least zero elements. \(Basically this matches with any array\) |
-| `[a]` | This array only has exactly one element. |
-| `[a, ...]` | This array has at least one element, where `a` is the first element. |
-| `[..., a]` | This array has at least one element, where `a` is the last element. |
-| `[a, ..., b]` | This  array has  at  least two elements, where `a` is the first element and `b` is the last element. |
-| `[...a, b]` | This array has  at least one element,  where `b` represents the last element while `a` represents all element before `b` \(can be empty array\). |
-| `[a, b]` | This array has exactly two elements, where `a` is the first element and `b` is the second element. |
-| `[a,...,b,...,c]` | Invalid pattern, cannot contain more than one spread \(triple dots\). |
 
 ### Record
 
@@ -394,11 +380,11 @@ For example:
 
 ```typescript
 let is_origin = 
-    \{ x = 0, y = 0 } => true
-    \_ => false
+  | { x 0 y 0 } => true
+  | _ => false
     
-do { x = 0, y = 0 }.print() // true 
-do { x = 1, y = 2 }.print() // false
+do { x 0 y 0 }.is_origin().print() // true 
+do { x 0 y 2 }.is_origin().print() // false
 ```
 
 ### Multiple function parameters
@@ -407,8 +393,8 @@ We can also pattern matching over multiple parameters of a function, for example
 
 ```typescript
 let and = 
-  \(true, true) => true
-  \(_, _) => false
+  | true true => true
+  | _ _ => false
   
 do true.and(true).print() // true
 do false.and(true).print() // false
@@ -420,14 +406,14 @@ do false.and(false).print() // false
 Patterns can be nested, for example:
 
 ```typescript
-enum Color = Red() Blue()
+enum Color = Red Blue
 type Animal = {
-    color: Color,
-    is_big: Boolean,
+  color:Color    
+  is_big:Boolean
 }
 
 let is_red_big_animal = 
-    \({color: Red(), is_big: true}: Animal) => true
-    \_ => false
+  | {color Red is_big true}:Animal => true
+  | _ => false
 ```
 
