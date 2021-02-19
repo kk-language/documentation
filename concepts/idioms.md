@@ -5,19 +5,19 @@
 Suppose we have the following function with 3 arguments:
 
 ```typescript
-let replace = \(s: string, old: number, new: number) => 0
+let replace = | s:String each:String with:String => 0
 ```
 
 We should always refactor it into a 2 arguments function using [record](../features/record-object.md):
 
 ```typescript
-let replace = \(s: string, {old: number, new: number}) => 0
+let replace = | s:String {each:String new:String}) => 0
 ```
 
 This is because we want to make the call site clear, for example, if we use the first `slice`, then it will look like this:
 
 ```typescript
-do "Hello world".replace("world", "Hello")
+do "Hello world".replace("Hello" "Bye")
 ```
 
 The problem with the code above is that it's ambiguous, does it replace `"Hello"` with `"world"` or the other way around?  
@@ -26,7 +26,7 @@ Without checking the definition of `replace` , and for users without prior exper
 Using record arguments, we can see that the problem above can be mitigated, for example with the second version of `slice` :
 
 ```typescript
-do "Hello world".replace({ old = "world", new = "Hello" })
+do "Hello world".replace({each "Hello" with "Bye"})
 ```
 
 Therefore, we should always refactor arguments with more than 2 arguments into a 2-argument function.
@@ -37,36 +37,36 @@ In some cases,  we might want to further differentiate a type into more specific
 
 ```typescript
 type People = {
-  name: string,
-  phone: string
+  name:String
+  phone:String
 }
 ```
 
 The type above has a problem, because it does not prevent us from assigning `name` to `phone` and vice versa. For example, the following code raises no compile error:
 
 ```typescript
-let a: People = { name = "Lee", phone = "12345" }
+let a: People = { name "Lee" phone "12345" }
 let b: People = {
-  name = a.phone, // No error 
-  phone = "23456"
+  name a.phone, // No error 
+  phone "23456"
 }
 ```
 
 We can fix this with singleton enum:
 
 ```typescript
-enum Name = Name(string)
-enum Phone = Phone(string)
-type People = { name: Name, phone: Phone }
+enum Name = Name(String)
+enum Phone = Phone(String)
+type People = { name:Name phone:Phone }
 
 let a: People = {
-  name = Name("Lee"),
-  phone = Phone("12345")
+  name Name("Lee")
+  phone Phone("12345")
 }
 
 let b: People = {
-  name = a.phone, // Error: type mismatch
-  phone = Phone("23456")
+  name a.phone // Error: type mismatch
+  phone Phone("23456")
 }
 ```
 
@@ -96,27 +96,27 @@ By, applying the rules above, we have:
 
 ```typescript
 // Vector.kk
-enum Vector = New({ elements: number[] })
+enum _Vector = _Vector({ elements: number[] })
 
-export type Type = Vector
+export type Vector = _Vector
 
 // Note that `new` is not a keyword in KK
 // It's highlighted because we are using the Typescript syntax
 // For writing the code snippet here
-export let new = \elements => Vector:New({ elements })
+export let vector = | elements => _Vector({ elements })
 
 // Note that we directly destructure Vector:New
-export let at = \(Vector:New(vector), index) =>
-  vector.elements.at(index)
+export let at = | _Vector({elements,}) index =>
+  elements.at(index)
 ```
 
 And here's how we use it in another file:
 
 ```typescript
-import "." Vector
+import "./" vector at
 
-let myVector = [1].Vector:new()
+let myVector = [1].vector()
 
-do myVector.Vector:at(0).Console:log()  // Some(1)
+do myVector.at(0).print()  // Some(1)
 ```
 
