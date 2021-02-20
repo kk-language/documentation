@@ -2,7 +2,7 @@
 
 ## Import
 
-### Syntac
+### Syntax
 
 The import syntax is as follows:
 
