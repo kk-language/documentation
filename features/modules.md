@@ -30,7 +30,7 @@ And their respective contents:
 ```typescript
 export let colors = ["red" "green" "blue"]
 export let foo = 1
-export enum Color = Red() Green()
+export enum Color = Red Green
 export type People = {name: String age: Integer}
 
 export let hello = |_:String => "i'm string"
@@ -46,16 +46,15 @@ export let foo = "hello"
 {% endtab %}
 {% endtabs %}
 
-The following are different ways on how we can import the exported members from `Colors.kk` and `Date.kk`.
+The following are different ways on how we can import the exported members from `colors.kk` and `date.kk`.
 
 {% code title="main.kk" %}
 ```typescript
-import "./colors.kk"
-    colors
-    foo
-    Color
-    People
-    hello
+import 
+  "./colors.kk"
+    colors foo Color People hello
+  "./date.kk" 
+    is_monday
 ```
 {% endcode %}
 
