@@ -27,11 +27,11 @@ You can make them run concurrently using `&`
 
 {% code title="concurrent.kk" %}
 ```typescript
-let fetch_fruits = | ! =>
-    let Ok(bananas) = !.fetch_bananas()
-    & let Ok(apples) = !.fetch_apples()
-    & let Ok(grapes) = !.fetch_grapes()
-    & do !.notify_users()
+let fetch_fruits = | {} =>
+    let Ok(bananas) = {}.fetch_bananas()
+    & let Ok(apples) = {}.fetch_apples()
+    & let Ok(grapes) = {}.fetch_grapes()
+    & do {}.notify_users()
     Ok({bananas, apples, grapes,})
 ```
 {% endcode %}
