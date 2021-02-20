@@ -2,6 +2,8 @@
 
 ## Import
 
+### Syntac
+
 The import syntax is as follows:
 
 ```c
@@ -64,7 +66,7 @@ import "./date.kk" {
 ```
 {% endcode %}
 
-## Importing enums
+### Importing enums
 
 Note that when an enum is exported, all of it's constructors are also exported, also when we import an enum, all of it's constructors will be brought into the current scope.   
 For example, suppose we have a `Color` enum in `./color.kk` :
@@ -86,7 +88,7 @@ do Red.print()
 ```
 {% endcode %}
 
-## Import aliasing
+### Import alias
 
 When we want to import two namespaces of the same name, we must alias one of them with a different name. For example \(arbitrary\):
 
@@ -94,7 +96,7 @@ When we want to import two namespaces of the same name, we must alias one of the
 import "./util/date.kk" is_monday = is_monday_2
 ```
 
-## Importing from Github \(WIP\)
+### Importing from remote \(WIP\)
 
 Importing from Github is also possible, but we need to specify the commit hash or the tag name.   
 
@@ -111,22 +113,48 @@ import "https://github.com/kk/stdlib/tree/v0.0.1"
     map
 ```
 
-## Re-export \(draft\)
+### Re-export
 
-We can import a namespace and export it, for example:
+KK does not allow re-export, as it can complicates the module structure of a project with unnecessary indirections.
+
+## Encapsulation
+
+Encapsulation can be achieved in KK via three level of access:
+
+| Level | Example | Visible to current file | Can be imported via relative path | Can be imported via URL |
+| :--- | :--- | :--- | :--- | :--- |
+| Private | `private let foo = 1` | Yes | No | No |
+| Protected | `let foo = 1` | Yes | Yes | No |
+| Public | `public let foo = 1` | Yes | Yes | Yes |
+
+### Protected \(Default\)
+
+_Protected_ is the default level of access, because based on my experience, most symbols are usually shared with each files within a project. __However, protected symbols cannot be imported via absolute path, this prevents library users from importing symbols that the author did not intend to expose.
+
+For example,
 
 ```typescript
-from "./hello.kk" export foo
+let foo = 1
 ```
 
-## Public Export \(Draft\)
+### Private
 
-This is for declaring value or function that will be consumed by the public, so that the KK compiler will not warn them as being unused.
+_Private_ restrict the access of a symbol to its own file, this is useful to prevent internal functions to be used by other files.  
+
+For example,
+
+```typescript
+private let foo = 1
+```
+
+### Public
+
+_Public_  is meant for exposing functions of a library that are meant to be consumed by other developers. Also, the compiler will not warn them as being unused.
 
 This feature can also allow automatic semantic versioning, by looking into the source code history.
 
 ```typescript
-public export x = 2
+public let x = 2
 ```
 
 ## Dead code elimination \(WIP\)
