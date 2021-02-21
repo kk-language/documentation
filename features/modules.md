@@ -107,15 +107,20 @@ Refer [https://medium.com/@alex.birsan/dependency-confusion-4a5d60fec610](https:
 {% endhint %}
 
 ```typescript
-import "https://github.com/kk/stdlib/tree/v0.0.1" 
+import "https://github.com/kk/stdlib/tree/v0.0.1" { 
     length,
     slice,
-    map
+    map,
+}
 ```
 
 ### Re-export
 
-KK does not allow re-export, as it can complicates the module structure of a project with unnecessary indirections.
+All imported symbols are exported by default. To prevent export, use `private` access modifier, for example:
+
+```typescript
+private import "./foo.kk" {Bar,}
+```
 
 ## Encapsulation
 
