@@ -55,7 +55,9 @@ One of the nightmare as a Typescript developer is the non-consistent build of `n
 1. Determining the suitable version of each package is NP-complete \(see [this article](https://research.swtch.com/version-sat)\)
 2. Potential security hole \(see [npm event-stream incident](https://www.trendmicro.com/vinfo/dk/security/news/cybercrime-and-digital-threats/hacker-infects-node-js-package-to-steal-from-bitcoin-wallets), although not necessarily related\)
 
-To prevent the issues above, KK should provide a mechanism for publishing and installing packages that will guarantee reproducible build.
+To prevent the issues above, KK should provide a mechanism for publishing and installing packages that will guarantee reproducible build.   
+References:  
+1. [https://www.lucidchart.com/techblog/2017/03/15/package-management-stop-using-version-ranges/](https://www.lucidchart.com/techblog/2017/03/15/package-management-stop-using-version-ranges/)
 
 ## 7. Railway programming
 
