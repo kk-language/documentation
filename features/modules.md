@@ -8,11 +8,11 @@ The import syntax is as follows:
 
 ```c
 IMPORT 
-  = "import" URL NAME+
+  = "import" URL "{" NAME+ "}"
   
 NAME
   = IDENTIFIER 
-  | IDENTIFIER "=" IDENTIFIER
+  | IDENTIFIER ":" IDENTIFIER
 ```
 
 For example, suppose we have the following files, where name that ends with `/` represent a folder:
@@ -53,14 +53,14 @@ The following are different ways on how we can import the exported members from 
 {% code title="main.kk" %}
 ```typescript
 import "./colors.kk" {
-    colors,
-    foo,
-    Color, 
-    People,
-    hello,
+    colors
+    foo
+    Color 
+    People
+    hello
 }
 import "./date.kk" {
-    is_monday,
+    is_monday
 }
 
 ```
@@ -81,7 +81,7 @@ When we import `Color` into `./main.kk` , then we can use the constructors alrea
 
 {% code title="./main.kk" %}
 ```typescript
-import "./color.kk" Color
+import "./color.kk" { Color }
 
 // Note that `Red` can be used here
 do Red.print()
@@ -93,7 +93,7 @@ do Red.print()
 When we want to import two namespaces of the same name, we must alias one of them with a different name. For example \(arbitrary\):
 
 ```typescript
-import "./util/date.kk" is_monday = is_monday_2
+import "./util/date.kk" { is_monday: is_monday_2 }
 ```
 
 ### Importing from remote \(WIP\)
@@ -108,9 +108,9 @@ Refer [https://medium.com/@alex.birsan/dependency-confusion-4a5d60fec610](https:
 
 ```typescript
 import "https://github.com/kk/stdlib/tree/v0.0.1" { 
-    length,
-    slice,
-    map,
+    length
+    slice
+    map
 }
 ```
 
@@ -119,7 +119,7 @@ import "https://github.com/kk/stdlib/tree/v0.0.1" {
 All imported symbols are exported by default. To prevent export, use `private` access modifier, for example:
 
 ```typescript
-private import "./foo.kk" {Bar,}
+private import "./foo.kk" { Bar }
 ```
 
 ## Encapsulation
