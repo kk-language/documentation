@@ -9,7 +9,7 @@
 ### Multiline comments
 
 ```coffeescript
-### 
+###
 Roses are blue;
 Violets are pink;
 The sky is red;
