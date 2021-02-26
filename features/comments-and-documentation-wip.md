@@ -13,7 +13,7 @@
 Roses are blue;
 Violets are pink;
 The sky is red;
-And so is it.
+And so it is.
 ###
 ```
 
