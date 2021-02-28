@@ -2,8 +2,19 @@
 
 ### Value definition
 
+All top level value definition requires type annotation. For example:
+
 ```typescript
-let square = \x => x.multiply(x)
+let square
+  : | Float => Float
+  = | x => x.multiply(x)
+```
+
+It would be a syntax error if type annotation is not provided:
+
+```coffeescript
+let foo = 2
+#       ^ Syntax error: expected `:` 
 ```
 
 ### Type alias definition
@@ -15,7 +26,7 @@ type IntegerArray = [Integer]
 ### Enum definition
 
 ```typescript
-enum Color = Red() Green() Blue()
+enum Color = Red Green Blue
 ```
 
 ### Do statement
@@ -24,16 +35,5 @@ Do statements will only be executed in entry point file.
 
 ```typescript
 do "Hello world".print()
-```
-
-### FFI
-
-```typescript
-ffi map<T, U> 
-  : \(
-    xs: T[],
-    f: \T -> U
-  ) -> [U] 
-  = "(xs, f) => xs.map(f)"
 ```
 
