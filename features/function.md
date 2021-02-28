@@ -192,7 +192,35 @@ let factorial
     n.multiply(n.minus(1).factorial())
 ```
 
-### 
+## Generalisation
+
+If you are familiar with Hindley-Milner type inference, you probably heard of generalisation, for example, the following function will be inferred to have the type of `forall a. a -> a`:
+
+```coffeescript
+let identity = | x => x
+```
+
+However, [since let should not be generalised](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/tldi10-vytiniotis.pdf), KK does not perform generalisation.   
+For example, the following program will be correct in a language that implement let-generalisation \(e.g. Haskell, OCaml\):
+
+```haskell
+-- Haskell
+main =
+  let id = \x -> x in
+  let x = id 1
+  let y = id "Hello"
+  return ()
+```
+
+However, in KK, it will be invalid:
+
+```coffeescript
+let main = 
+  let id = | x => x
+  let x = 1.id()
+  let y = "Hello".id()
+  #       ^^^^^^^ Expected Integer, not String
+```
 
 #### 
 
