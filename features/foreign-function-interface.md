@@ -1,34 +1,42 @@
 # Foreign Function Interface \(FFI\)
 
-_This section is not done yet._  
-Unlike most languages,  FFI in KK is type safe, drawing ideas from [Foreign Function Typing: Semantic Type Soundness for FFIs](https://wgt20.irif.fr/wgt20-final23-acmpaginated.pdf).    
-The type safety is achieve via comparing the types in KK and that of the target language. This is possible because the target language is Typescript.
+### Syntax
 
-For example:  
+We can call Javascript function from KK by using `@@@` , for example:
 
-
-```typescript
+```coffeescript
 let plus
-  : \number, number => number 
-  = ffi ":(x: number, y: number): number => x + y"
+  : | Integer Integer => Integer 
+  = @@@ (x, y) => x + y @@@
+  
+do 1.plus(2).print() # 3
 ```
 
-### Function
+### Considerations
 
-### Marco
+Since KK does not support mutation, it is strongly recommended that users who would want to write Javascript wrappers to provide API that does not cause mutation.  
+For example, let's consider the wrapper for `Array.push` method.  
+This is a bad wrapper as it mutates the input:
 
-Macro is for expanding expression directly into native Javascript without wrapping around a function, this is useful for defining builtin function.  
-For example:
-
-```typescript
-// KK
-let plus = @javascriptMacro(
-    \(x: number, y: number) => number
-    "_0 + _1"
-)
-let result = 1.plus(2).plus(3)
-
-// Javascript
-var result = (((1) + (2)) + (3))
+```coffeescript
+# Bad
+let push<A>
+  : | [A] A => [A]
+  = @@@ (xs, x) => {x.push(x); return x} @@@
 ```
+
+This is a good wrapper as it does not mutate the input:
+
+```coffeescript
+# Good
+let push<A>
+  : | [A] A => [A]
+  = @@@ (xs, x) => [...xs, x] @@@
+```
+
+In general, [**referential transparency**](https://en.wikipedia.org/wiki/Referential_transparency) should be maintained.
+
+
+
+### 
 
