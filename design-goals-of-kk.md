@@ -46,7 +46,9 @@ Languages that don't have this problem are:
 
 Tools such as linter, formatter, testing primitives and language server should be supported by default to promote consistencies across different codebases. On top of that, all these tools should only allow minimal configuration. These are necessary to prevent unnecessary and unproductive arguments, for example in the Javascript community, users might fight over whether to use [Prettier](https://github.com/prettier/prettier) as the formatter or [Standard](https://standardjs.com/).  Go smartly avoided this problem by providing `gofmt` from the beginning. 
 
-Another example is the build system of Haskell, where user can choose between Stack or Cabal, which might doubles the testing effort of library authors. Rust smartly avoided this problem by providing `cargo` from the beginning.
+Another example is the build system of Haskell, where user can choose between Stack or Cabal, which might doubles the testing effort of library authors. Rust smartly avoided this problem by providing `cargo` from the beginning.  
+  
+This also solves the problem of configuration hell, usually in a Node.js project, you will have a lot of configuration files such as `eslintrc` , `prettierrc` , `webpack.config.js` , `package.json` etc and all of these make it hard to maintain a standard configurations over different projects, as they have to be copied all over. 
 
 ## 6. Strictly reproducible build
 
