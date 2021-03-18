@@ -103,9 +103,8 @@ isCrazy.(\true => "Crazy" \_ => "no")
 // syntax 5
 let and 
  : \(boolean, boolean) => boolean
- = 
- \(true, true) => true
- \(_, _) => false
+ = \(true, true) => true
+   \(_, _) => false
  
 [1,2,3].reduce(initial: 0, f: 
   \(acc, x) => acc.plus(x)
@@ -135,6 +134,18 @@ result.(
 )()
 isCrazy.(if true => "Crazy" if _ => "no") 
 
+// syntax 7
+let and = 
+  let true let true return true
+  let _    let _    return false
+
+[1, 2, 3].reduce(0, let acc, x 
+  return acc.plus(x)
+) 
+
+result.(
+  let Some(_) return 
+)
 
 // Other syntax
 a
@@ -178,13 +189,13 @@ let is_red =
 Sometimes, a pattern match can get really nested, for example:
 
 ```typescript
-let compute_bounds = | 
-  xs:[Integer] 
--> Option<{lower:Integer upper:Integer}> => 
-  let xs = xs.sort()
-  xs.first().match(
+let compute_bounds
+: | [Integer] => Option<{lower:Integer upper:Integer}>
+= | xs => 
+  let xs = xs.sort
+  xs.first.match(
     | Some(lower) => xs.last.match(
-      | Some(upper) => Some({lower, upper,})
+      | Some(upper) => Some({lower upper})
       | None => None
     )
     | None => None
@@ -195,24 +206,29 @@ let compute_bounds = |
 The code can get really unreadable with  this kind of nesting, to improve the situation we can use monadic bindings:
 
 ```typescript
-let computeBounds = |
-  xs:[Integer]  
--> Option<{lower:Integer upper:Integer}> =>
-  let xs = xs.sort()
-  let Some(lower) = xs.first()
-  let Some(upper) = xs.last()
-  Some({lower, upper,}) 
+let unpack<A B>
+: | Option<A> | A => Option<B> => Option<B>
+= | Some(a) f => a.f
+  | None _ => None
+
+let computeBounds =
+: | [Integer] => Option<{lower:Integer upper:Integer}>
+= | xs => 
+  let xs = xs.sort
+  let lower <- xs.first.unpack(_)
+  let upper <- xs.last.unpack(_)
+  Some({lower upper}) 
 ```
 
 But in case you still want to handle the non-happy path, you still can do it with `else`:
 
 ```typescript
 let computeBounds = | xs => 
-    let xs = xs.sort()
-    let Some(lower) = xs.first()
-    let Ok(upper) = xs.last() else 
-      | Error(_) => None
-    Some({lower, upper,})
+  let xs = xs.sort
+  let Some(lower) = xs.first()
+  let Ok(upper) = xs.last() else 
+    | Error(_) => None
+  Some({lower, upper,})
 ```
 
 ### Single-case destructuring
