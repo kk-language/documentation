@@ -35,8 +35,13 @@ export let foo = 1
 export enum Color = Red Green
 export type People = {name: String age: Integer}
 
-export let hello = |_:String => "i'm string"
-export let hello = |_:Null => "i'm null"
+export let hello
+  : | String => String
+  = | _ => "i'm string"
+  
+export let hello 
+  : | Null => String
+  = | _ => "i'm null"
 ```
 {% endtab %}
 
@@ -84,7 +89,7 @@ When we import `Color` into `./main.kk` , then we can use the constructors alrea
 import "./color.kk" { Color }
 
 // Note that `Red` can be used here
-do Red.print()
+do Red.print
 ```
 {% endcode %}
 
