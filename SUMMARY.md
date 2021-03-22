@@ -17,6 +17,7 @@
 * [Variables](features/variables.md)
 * [Function](features/function.md)
 * [Function Overloading](features/single-dispatch.md)
+* [Conditional Expression](features/conditional-expression.md)
 * [Types](features/types.md)
 * [Record / Object](features/record-object.md)
 * [Enums](features/variants-union.md)
