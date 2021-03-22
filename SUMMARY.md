@@ -23,6 +23,7 @@
 * [Enums](features/variants-union.md)
 * [Recursive Types](features/recursive-types.md)
 * [Pattern Matching](features/pattern-matching.md)
+* [Applicative-Let](features/applicative-let.md)
 * [Promise \(draft\)](features/promise.md)
 * [Modules \(WIP\)](features/modules.md)
 * [External data \(WIP\)](features/external-data.md)

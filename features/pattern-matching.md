@@ -182,66 +182,31 @@ let is_red =
   | _   => false
 ```
 
-## Monadic bindings
 
-### Example
 
-Sometimes, a pattern match can get really nested, for example:
+### Refutable pattern for let bindings
 
-```typescript
-let compute_bounds
-: | [Integer] => Option<{lower:Integer upper:Integer}>
-= | xs => 
-  let xs = xs.sort
-  xs.first.match(
-    | Some(lower) => xs.last.match(
-      | Some(upper) => Some({lower upper})
-      | None => None
-    )
-    | None => None
-  )
+Binding a refutable pattern using `let` is disallowed. A refutable pattern is a pattern that is non-exhaustive, in other words the pattern does not cover for all possible cases.    
+For example, the following is erroneous:
 
+```coffeescript
+let print_if_exists
+  : | Option<String> => Null
+  = | result =>
+    let Some(x) = result
+    #   ^^^^^^^ Cannot bind to refutable pattern.
+    #           Case of None is not covered.
+    do x.print
+    null
 ```
 
-The code can get really unreadable with  this kind of nesting, to improve the situation we can use monadic bindings:
+However, the following is allowed, since the pattern is exhaustive:
 
 ```typescript
-let unpack<A B>
-: | Option<A> | A => Option<B> => Option<B>
-= | Some(a) f => a.f
-  | None _ => None
-
-let computeBounds =
-: | [Integer] => Option<{lower:Integer upper:Integer}>
-= | xs => 
-  let xs = xs.sort
-  let lower <- xs.first.unpack(_)
-  let upper <- xs.last.unpack(_)
-  Some({lower upper}) 
-```
-
-But in case you still want to handle the non-happy path, you still can do it with `else`:
-
-```typescript
-let computeBounds = | xs => 
-  let xs = xs.sort
-  let Some(lower) = xs.first()
-  let Ok(upper) = xs.last() else 
-    | Error(_) => None
-  Some({lower, upper,})
-```
-
-### Single-case destructuring
-
-If the destructure pattern we defined on the left is exhaustive, then there will be no implicit returns. 
-
-For example:
-
-```typescript
-enum Person = Person({name:String})
-
-let name = | person =>
-  let Person({name,}) = person
+let name 
+  : | Person => String
+  = | person =>
+  let Person({name}) = person
   name
 ```
 
