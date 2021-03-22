@@ -76,3 +76,9 @@ x.map(|a => y)
 
 As you may guess, the `function` must be a binary function \(i.e. a two-parameter function\), and its second parameter must be type of function, otherwise a compile error will be thrown. 
 
+{% hint style="info" %}
+Side notes
+
+If you have kept an eye on OCaml, you probably noticed that the syntax above is very similar to this recent [ppx\_let](https://github.com/janestreet/ppx_let) proposal. Weirdly, before I came up with this syntax, I did have a look on that proposal, but I did not understand it at that time, but after an inspiration that hit me at midnight, then when I looked back at the proposal, I find it shocking that it was actually almost equivalent to what I thought.
+{% endhint %}
+
