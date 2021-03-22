@@ -29,7 +29,7 @@
 * [Foreign Function Interface \(FFI\)](features/foreign-function-interface.md)
 * [Effects](features/effects.md)
 * [Metaprogramming \(WIP\)](features/metaprogramming.md)
-* [Comments & Documentation \(WIP\)](features/comments-and-documentation-wip.md)
+* [Comments & Documentation](features/comments-and-documentation-wip.md)
 
 ## Testing
 

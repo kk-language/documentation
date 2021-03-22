@@ -1,4 +1,4 @@
-# Comments & Documentation \(WIP\)
+# Comments & Documentation
 
 ### Single line comments
 
@@ -34,7 +34,22 @@ of mathematics and physics.
 let pi = 3.142
 ```
 
+### Code in Documentation
 
+Code snippet within documentation will be treated as normal code. Code snippet can be created by enclosing a section with triple backticks:  
+
+
+```coffeescript
+###
+Example:
+```
+do `9.0.square`.should_be(`81`)
+```
+###
+let square
+  : | Float => Float
+  = | n => n.multiply(2.0)
+```
 
 Reference: [https://documentation.divio.com/](https://documentation.divio.com/)
 
