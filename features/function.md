@@ -3,15 +3,7 @@
 ## Function syntax
 
 ```c
-Function =
-BACKSLASH  
-  FunctionParameters
-  ["->" TypeAnnotation]
-  "=>" Expression
-  
-FunctionParameters
-  = Pattern
-  | "(" (Pattern [":" TypeAnnotation])+ ")"
+function = ("|" pattern "=>" expression)+
 ```
 
 #### Zero argument function
@@ -19,33 +11,52 @@ FunctionParameters
 All function must take at least one argument in KK, so to emulate a  zero-argument function, you can use [null](types.md#null), which represent unit type in KK.
 
 ```typescript
-let say_hello = \null => "Hello world".print()
-do null.say_hello()
+let say_hello 
+  : | Null => Null
+  = | null => "Hello world".print
+do null.say_hello
 ```
-
-Generally type annotation is not required in KK, because they can be inferred.
 
 #### One argument function
 
-```typescript
-let square = \x => x.times(x)
-do 2.square().print() // 4
+```coffeescript
+let square
+  : | Integer => Integer
+  = | x => x.times(x)
+do 2.square.print # 4
 ```
 
 #### Two arguments function
 
-```typescript
-let multiply = \(x, y) => x.times(y)
-do 2.multiply(3).print() // 6
+```coffeescript
+let multiply 
+  : | Integer Integer => Integer
+  = | x y => x.times(y)
+do 2.multiply(3).print # 6
 ```
 
 #### Annotating function types
 
-You can annotate the arguments type as follows, although they are optional:
+Type annotation are required for top level functions, however function that are declared in lower level need not.
 
-```typescript
-let square = \(x: Float) -> Float => x.times(x)
+```coffeescript
+# Top level function requires type annotation
+let square
+  : | Float => Float
+  = | x => x.multiply(2.0)
+  
+let main
+  : | Null => Null
+  = 
+    # No need type annotation for `square`
+    let square = | x => x.multiply(2.0)
+    do 9.square.print
 ```
+
+{% hint style="info" %}
+Why is type annotation required for top level functions?  
+This is because KK support single dispatch \(i.e. function overloading based on the type of the first parameter\). Therefore, without type annotation, KK will not be able to infer the type of each function properly.  
+{% endhint %}
 
 ## Function call
 
@@ -60,14 +71,14 @@ print(join("Hello ", "World"))
 Is the same as the following KK:
 
 ```typescript
-"Hello ".join("world").print()
+"Hello ".join("world").print
 ```
 
 Because of this reason, curried function will look very weird:
 
 ```typescript
-let add = \x => \y => x.plus(y)
-2.(3.add())()
+let add = | x => | y => x.plus(y)
+do 2.(3.add).print
 ```
 
 {% hint style="info" %}
@@ -80,23 +91,27 @@ From my personal experience, although currying make the code shorter, it reduces
 > ### Generic functions
 
 ```typescript
-let first<T> = \(xs: [T]) => 
-  xs.at(0)
+let first<T>
+  : | [T] => Option<T>
+  = | xs => xs.at(0)
 ```
 
 ## How do invoke function properties in object?
 
-```typescript
+```coffeescript
 let math = {
-  plus = \(x, y) => x.`+`(y)
+  plus = | x y => x.plus(y)
 }
 
-// Wrong
-let answer = math.plus(1, 2)
+# Wrong
+let answer = math.plus(1 2)
 
-// Correct
+# Correct (version 1)
 let { plus } = math
 let answer = 1.plus(2)
+
+# Correct (version 2)
+let answer = 1.(math.plus)(2)
 ```
 
 ## Dot shorthand
@@ -106,13 +121,13 @@ let answer = 1.plus(2)
 Instead of writing:
 
 ```typescript
-\x => \x.value.add(1).minus(2)
+| x => |x.value.add(1).minus(2)
 ```
 
 We can write:
 
 ```typescript
-.value.add(1).minus(2)
+|.value.add(1).minus(2)
 ```
 
 ### Record Property Access
@@ -120,13 +135,13 @@ We can write:
 Instead of writing:
 
 ```typescript
-\x => x.foo.bar
+| x => x.foo.bar
 ```
 
 We can write:
 
 ```typescript
-.foo.bar
+|.foo.bar
 ```
 
 ### Record Property Update
@@ -134,13 +149,13 @@ We can write:
 Instead of writing:
 
 ```typescript
-\x => x.{ y = 2 }
+| x => x.{ y: 2 }
 ```
 
 We can write:
 
 ```typescript
-.{ y = 2 }
+|.{ y: 2 }
 ```
 
 
@@ -150,46 +165,39 @@ We can write:
 Optional function arguments is not supported in KK, however we can emulate it with [shorthand record property update](function.md#record-property-update).  
 For example,
 
-```typescript
+```coffeescript
 type Preference = {
-  quantity: Integer,
-  pay_by_cash: Boolean,
+  quantity: Integer
+  pay_by_cash: Boolean
 }
-let buy_food = \(
-  food_id: String,
-  update: \Preference -> Preference
-) => 
-  let { quantity, pay_by_cash } = {
-    // Specify default values here
-    quantity = 1,
-    pay_by_cash = true
-  }.update()
-  do [quantity, pay_by_cash].print()
+let buy_food
+  : | String | Preference => Preference => Null
+  = | food_id update_preference => 
+  let { quantity pay_by_cash } = {
+    # Specify default values here
+    quantity: 1
+    pay_by_cash: true
+  }.update_preference
+  do [quantity pay_by_cash].print()
   null
   
 
-// Usage
-do "apple".buy_food(.{}) // [1, true]
-do "apple".buy_food(.{quantity = 2}) // [2, true]
+# Usage
+do "apple".buy_food(|.{}) # [1 true]
+do "apple".buy_food(|.{quantity: 2}) # [2 true]
 ```
 
 ## Recursive functions
 
-To define a recursive function, you must annotate the function name with a function type, for example:
+Functions in KK can be recursive by default. For example:
 
 ```typescript
-// This does not work, because of missing type annotation
-let factorial 
-  = \n =>
-    let true = n.greaterThan(1) else \_ => 1
-    n.multiply(n.minus(1).factorial())
-
-// This works
 let factorial
-  : \number -> number // <- This annotation allows recursive function
-  = \n =>
-    let true = n.greaterThan(1) else \_ => 1
-    n.multiply(n.minus(1).factorial())
+  : | Integer => Integer
+  = | n =>
+    if n.less_than(2)
+      1
+    n.minus(1).factorial.multiply(n)
 ```
 
 ## Generalisation
@@ -217,8 +225,8 @@ However, in KK, it will be invalid:
 ```coffeescript
 let main = 
   let id = | x => x
-  let x = 1.id()
-  let y = "Hello".id()
+  let x = 1.id
+  let y = "Hello".id
   #       ^^^^^^^ Expected Integer, not String
 ```
 

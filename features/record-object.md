@@ -14,9 +14,9 @@ let people: {
     title: String
   }
 } = {
-  name "Lee"
-  job {
-    title "Engineer"
+  name: "Lee"
+  job: {
+    title: "Engineer"
   }
 }
 ```
@@ -27,35 +27,14 @@ Instead of writing:
 
 ```typescript
 let x = 1
-let y = {x x}
+let y = {x: x}
 ```
 
 We use pun the property name with comma:
 
 ```typescript
 let x = 1
-let y = {x,}
-```
-
-### Property Type Annotation
-
-Since equals `=`  is used instead of colon `:`, we can easily annotate the type of a property, for example, say we want the `name` property of `people` to have type `String`:
-
-```typescript
-let people = {
-  name: String "Lee"
-  age 5
-}
-```
-
-Because of this syntax decision, we can destructure an object with types without much boilerplate, unlike [in Typescript](https://github.com/microsoft/TypeScript/issues/29526).
-
-```typescript
-// Typecsript
-let f = ({a, b: c}: {a: String, b: String}) => ...
-
-// kk
-let f = | {a: String b: String c} => ...
+let y = {x}
 ```
 
 ### No subtyping
@@ -76,16 +55,16 @@ let ball
 We can update a record using the `.{}` syntax:
 
 ```typescript
-let people = {name "Lee", age 6}
-let new_people = people.{ name "Wee" }
-do people.log() // {name: "Lee", age: 6}
-do new_people.log() // {name: "Wee", age: 6}
+let people = {name: "Lee" age: 6}
+let new_people = people.{ name: "Wee" }
+do people.log // {name: "Lee" age: 6}
+do new_people.log // {name: "Wee" age: 6}
 ```
 
 We can also update a value of a property based on its previous value. The syntax is as follows:
 
 ```c
-expression '.' '{' property_name dot_expression '}'
+expression '.' '{' property_name ':' dot_expression '}'
 ```
 
 {% hint style="info" %}
@@ -99,15 +78,15 @@ Dot expression means any of the following:
 For example:
 
 ```typescript
-let a = {people {name "Bob" age 6}}
+let a = {people: {name: "Bob" age: 6}}
 
-let b = a.{people.{name "John"}}
+let b = a.{people.{name: "John"}}
 
 let c = a.{people.{age.plus(1)}}
 
-do a.print() // {people {name "Bob" age 6}}
-do b.print() // {people {name "John" age 6}}
-do c.print() // {people {name "Bob" age 7}}
+do a.print // {people: {name: "Bob" age: 6}}
+do b.print // {people: {name: "John" age: 6}}
+do c.print // {people: {name: "Bob" age: 7}}
 ```
 
 {% hint style="danger" %}
