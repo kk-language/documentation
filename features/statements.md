@@ -31,7 +31,16 @@ enum Color = Red Green Blue
 
 ### Do statement
 
-Do statements will only be executed in entry point file. 
+Syntax:
+
+```c
+do_statement = "do" expression
+```
+
+Semantics:  
+1. The expression type of `do` statement must be `Null` 
+
+2. `do` statements should only be compiled for entry point file
 
 ```typescript
 do "Hello world".print()
