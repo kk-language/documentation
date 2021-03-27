@@ -20,6 +20,7 @@
 * [Conditional Expression](features/conditional-expression.md)
 * [Types](features/types.md)
 * [Record / Object](features/record-object.md)
+* [String](features/string.md)
 * [Enums](features/variants-union.md)
 * [Recursive Types](features/recursive-types.md)
 * [Pattern Matching](features/pattern-matching.md)
