@@ -24,9 +24,8 @@ Interpolated expressions must be String
 For example, the following code will result in compile error:
 
 ```coffeescript
-let my_age : Integer = 2
-do "I am #{my_age} years old"
-#          ^^^^^^ Expected String, got Integer
+do "I am #{[2]} years old"
+#          ^^^^^^ Expected String, got [Integer]
 ```
 {% endhint %}
 
