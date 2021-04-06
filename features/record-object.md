@@ -37,6 +37,66 @@ let x = 1
 let y = {x}
 ```
 
+### Record Wildcards
+
+Boilerplates can be avoided by using wildcard operator `..` , record wildcards works for both construction and deconstruction of records.  
+For example:
+
+```coffeescript
+type People = {
+  first_name: String
+  last_name: String
+}
+# Normal record deconstruction
+let to_string_1
+ : | People => String
+ = | {first_name last_name} =>
+     "#{first_name}, #{last_name}"
+     
+# Record deconstruction using wildcard
+let to_string_2
+ : | People => String
+ = | {..} =>
+     "#{first_name}, #{last_name}"
+     
+ # Normal record construction
+ let make_people_1
+  : | String String => People
+  = | first_name last_name = {first_name last_name}
+  
+ # Record construction using wildcard
+ let make_people_2
+  : | String String => People
+  = | first_name last_name = {..}
+```
+
+{% hint style="info" %}
+When using record wildcards, type annotation is needed, if not the compiler will not be able to automatically fill in the required properties.   
+For example, the following usage of record wildcard will be erroneous:
+
+```coffeescript
+do
+  let x = {..}
+          # Error: missing type annotation
+  null
+```
+
+To fix that, we just need to add type annotation:
+
+```coffeescript
+do
+  let x : { a: String b: String} = {..} # No error
+  do a.print
+  b.print
+```
+{% endhint %}
+
+  
+  
+
+
+
+
 ### No subtyping
 
 In other words, no extra field is allowed. For example the following code will cause compile error:
