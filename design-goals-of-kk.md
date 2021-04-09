@@ -52,7 +52,7 @@ This also solves the problem of configuration hell, usually in a Node.js project
 
 ## 6. Strictly reproducible build
 
-One of the nightmare as a Typescript developer is the non-consistent build of `npm`, which can cause a significant amount of engineering time to go into fixing package versions. This problem is worse in  React Native, because it depends not only on `npm` , but also `gradle` \(for Android build\) and `cocoapods` \(for iOS build\), and each of them allow [specifying version range](https://docs.npmjs.com/about-semantic-versioning#using-semantic-versioning-to-specify-update-types-your-package-can-accept), which is a feature that allows user to install a different version of the same package in the future without changing the package manifest file. Although this feature has its merits, for example it allows user to install hot patches implicitly, however it can cause build to be irreproducible, and also several problems:
+One of the nightmare as a Typescript developer is the non-consistent build of `npm`, which can cause a significant amount of engineering time to go into fixing package versions. This problem is worse n  React Native, because it depends not only on `npm` , but also `gradle` \(for Android build\) and `cocoapods` \(for iOS build\), and each of them allow [specifying version range](https://docs.npmjs.com/about-semantic-versioning#using-semantic-versioning-to-specify-update-types-your-package-can-accept), which is a feature that allows user to install a different version of the same package in the future without changing the package manifest file. Although this feature has its merits, for example it allows user to install hot patches implicitly, however it can cause build to be irreproducible, and also several problems:
 
 1. Determining the suitable version of each package is NP-complete \(see [this article](https://research.swtch.com/version-sat)\)
 2. Potential security hole \(see [npm event-stream incident](https://www.trendmicro.com/vinfo/dk/security/news/cybercrime-and-digital-threats/hacker-infects-node-js-package-to-steal-from-bitcoin-wallets), although not necessarily related\)
@@ -77,4 +77,8 @@ Example of railway programming:
 | Haskell | Monad | [do notation](https://en.wikibooks.org/wiki/Haskell/do_Notation) |
 | Rust | Result | [? operator](https://doc.rust-lang.org/edition-guide/rust-2018/error-handling-and-panics/the-question-mark-operator-for-easier-error-handling.html) |
 | F\# | [Computation Expressions](https://docs.microsoft.com/en-us/dotnet/fsharp/language-reference/computation-expressions) | `let!` etc |
+
+## 8. Familiarity
+
+This language should be familiar to existing Typescript users, in other words, there should _no_ _unnecessary syntax difference_, all kind of syntaxes that differs from Typescript should have a strong justification, for example, disallowing some syntax because it's unsound 
 
