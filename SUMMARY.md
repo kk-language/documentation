@@ -32,6 +32,7 @@
 * [Effects](features/effects.md)
 * [Metaprogramming \(WIP\)](features/metaprogramming.md)
 * [Comments & Documentation](features/comments-and-documentation-wip.md)
+* [Typescript-like Syntax](features/typescript-like-syntax.md)
 
 ## Testing
 
