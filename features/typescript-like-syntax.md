@@ -17,7 +17,7 @@ block_expression =
   "}"
 
 switch_expression = 
-  "switch" "(" expression ")" "{"
+  "switch" expression "{"
     ("case" pattern ":" expression)+
   "}"
 
