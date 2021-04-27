@@ -24,7 +24,7 @@ Therefore, features that will dramatically slows down the overall compilation sp
 
 ## 3. Safe, sound but flexible type system
 
-This goals demand that all features in KK must not contain edge cases that cannot be resolved properly, or promotes the usage of creating holes in program to bypass type checking \(one example is the `any` type in TypeScript\). However KK does not take it to the extreme where even unsafe foreign function interfaces are banned \(notably Elm\). This is necessary to provide the user the confident of [_if it compiles, it works_](https://wiki.haskell.org/Why_Haskell_just_works), which is a very important user experience, such that the user will not treat the type system as an annoying nagger, but rather a helpful assistant \(which is my personal experience, in Java, I see the type system as an bureaucratic ceremony, because it's almost purposeless, as in the types does not guarantee that the program won't unexpectedly crashed. However in Haskell, it's a totally different behaviour, even though less type annotations are needed, but it really does guarantee that my program will only crash on my command\).
+This goals demand that all features in KK must not contain theoretical edge cases that cannot be resolved properly \(due to compatibility with JavaScript\), or promotes the usage of creating holes in program to bypass type checking \(one example is the `any` type in TypeScript\). However KK does not take it to the extreme where even unsafe foreign function interfaces are banned \(notably Elm\). This is necessary to provide the user the confident of [_if it compiles, it works_](https://wiki.haskell.org/Why_Haskell_just_works), which is a very important user experience, such that the user will not treat the type system as an annoying nagger, but rather a helpful assistant \(which is my personal experience, in Java, I see the type system as an bureaucratic ceremony, because it's almost purposeless, as in the types does not guarantee that the program won't unexpectedly crashed. However in Haskell, it's a totally different behaviour, even though less type annotations are needed, but it really does guarantee that my program will only crash on my command\).
 
 _Flexible_ means that type annotations should be less ceremonial as possible, one example is the anonymous struct type in TypeScript, on the contrary there's Rust, which required every struct to be defined up front, which can be very annoying for single-use struct.
 
@@ -80,5 +80,5 @@ Example of railway programming:
 
 ## 8. Familiarity
 
-This language should be familiar to existing Typescript users, in other words, there should _no_ _unnecessary syntax difference_, all kind of syntaxes that differs from Typescript should have a strong justification, for example, disallowing some syntax because it's unsound 
+This language should be familiar to existing Typescript users, in other words, there should _no_ _unnecessary syntax difference_, all kind of syntaxes that differs from Typescript should have a strong justification, for example, disallowing some syntax because it's unsound.
 
