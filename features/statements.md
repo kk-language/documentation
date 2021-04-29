@@ -2,25 +2,30 @@
 
 ### Value definition
 
-All top level value definition requires type annotation. For example:
+For example:
 
 ```typescript
-let square
-  : | Float => Float
-  = | x => x.multiply(x)
+let square = (n: Float): Float => n.multiply(n);
 ```
 
-It would be a syntax error if type annotation is not provided:
+{% hint style="info" %}
+No side effects
 
-```coffeescript
-let foo = 2
-#       ^ Syntax error: expected `:` 
-```
+Top level value definitions cannot result in immediate function calls, this is to prevent unintended side effects when importing a module, and is also crucial for performing tree shaking properly. 
 
-### Type alias definition
+  
+For example, the following is invalid:
 
 ```typescript
-type IntegerArray = [Integer]
+let my_value = "hello".concat("world")
+//                     ^^^^^^ Cannot invoke function at top level
+```
+{% endhint %}
+
+###  Type alias definition
+
+```typescript
+type Product<A, B> = {a: A, b: B};
 ```
 
 ### Enum definition
