@@ -2,6 +2,7 @@
 
 * [Overview](README.md)
 * [Design goals of KK](design-goals-of-kk.md)
+* [Features](features-1.md)
 
 ## Concepts
 
