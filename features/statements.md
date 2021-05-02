@@ -22,7 +22,9 @@ let my_value = "hello".concat("world")
 ```
 {% endhint %}
 
-###  Type alias definition
+ 
+
+### Type alias definition
 
 ```typescript
 type Product<A, B> = {a: A, b: B};
@@ -31,23 +33,17 @@ type Product<A, B> = {a: A, b: B};
 ### Enum definition
 
 ```typescript
-enum Color = Red Green Blue
+enum Color { Red, Green, Blue };
 ```
 
-### Do statement
+### Expression statement
 
-Syntax:
-
-```c
-do_statement = "do" expression
-```
-
-Semantics:  
-1. The expression type of `do` statement must be `Null` 
-
-2. `do` statements should only be compiled for entry point file
+Expressions can be written at top level like JavaScript, however, only the entry file's top-level expressions will be compiled.   
+Suppose we have a file `A` importing file `B` and both of them has a top level expressions as follows:
 
 ```typescript
-do "Hello world".print()
+"Hello world".print();
 ```
+
+When we execute `A` or `B` we will only see **one** line of `"Hello world"` instead of two.
 

@@ -2,37 +2,32 @@
 
 ## Function syntax
 
-```c
-function = ("|" pattern "=>" expression)+
-```
+The function syntax of KK is almost identical to that of Typescript.
 
 #### Zero argument function
 
 All function must take at least one argument in KK, so to emulate a  zero-argument function, you can use [null](types.md#null), which represent unit type in KK.
 
 ```typescript
-let say_hello 
-  : | Null => Null
-  = | null => "Hello world".print
-do null.say_hello
+let sayHello = (null) => "Hello world".print();
+null.sayHello();
 ```
 
 #### One argument function
 
-```coffeescript
-let square
-  : | Integer => Integer
-  = | x => x.times(x)
-do 2.square.print # 4
+```typescript
+let square = (x: Integer): Integer => x.times(x);
+
+2.square().print(); // 4
 ```
 
 #### Two arguments function
 
-```coffeescript
-let multiply 
-  : | Integer Integer => Integer
-  = | x y => x.times(y)
-do 2.multiply(3).print # 6
+```typescript
+let multiply = (x: Integer, y: Integer): Integer =>
+  x.times(y)
+
+2.multiply(3).print(); // 6
 ```
 
 #### Annotating function types
