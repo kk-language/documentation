@@ -23,9 +23,9 @@ let people: {
 }
 ```
 
-### Property Type Annotation
+## Property Type Annotation
 
-Since equals `=`  is used instead of colon `:`, we can easily annotate the type of a property, for example, say we want the `name` property of `people` to have type `String`:
+Since equals `=` is used instead of colon `:`, we can easily annotate the type of a property, for example, say we want the `name` property of `people` to have type `String`:
 
 ```typescript
 let people = {
@@ -44,7 +44,7 @@ let f = ({a, b: c}: {a: String, b: String}) => ...
 let f = \{a: String, b: String = c} => ...
 ```
 
-### No subtyping
+## No subtyping
 
 In other words, no extra field is allowed. For example the following code will cause compile error:
 
@@ -54,10 +54,10 @@ let ball
   = {
     color = "Red", 
     price = 9
-  } // Error, "price" field is extraneous 
+  } // Error, "price" field is extraneous
 ```
 
-### Updating a record
+## Updating a record
 
 We can update a record using the `.{}` syntax:
 
@@ -112,11 +112,7 @@ let man = {
 However in KK, the code above will be invalid because the properties of a record must be preserved.
 {% endhint %}
 
-
-
-### Optional properties and default value
+## Optional properties and default value
 
 KK does not allow optional fields, because it defeats type checking, most of the time when we want to added a new property for a type, the desirable behaviour is for the compiler to raise errors on all usage of the type, which is not possible with optional properties.
-
-
 

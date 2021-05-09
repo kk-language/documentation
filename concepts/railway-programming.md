@@ -1,7 +1,6 @@
 # Railway Programming
 
-After some years of programming, I realised that people really like railway programming, for example:  
-
+After some years of programming, I realised that people really like railway programming, for example:
 
 | Language | Original | Railway |
 | :--- | :--- | :--- |

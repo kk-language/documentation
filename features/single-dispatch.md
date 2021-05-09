@@ -6,7 +6,7 @@ description: Also known as single dispatch.
 
 ## Function Overload / Single Dispatch
 
-In KK, single static dispatch is supported based on the type of first parameter. 
+In KK, single static dispatch is supported based on the type of first parameter.
 
 The following is valid:
 
@@ -37,7 +37,7 @@ In this case, we just need to annotate `x` to allow disambiguation:
 
 ```typescript
 let bar = \(x: Boolean) => x.foo()
- 
+
 do true.bar().print() // "World"
 ```
 
@@ -62,9 +62,9 @@ let bar = \(_: Option<String>) => null
 ```
 
 {% hint style="info" %}
-#### Why specialization is not allowed in KK?
+### Why specialization is not allowed in KK?
 
-First of all, specialization contains a lot of edge cases and messes up type checking \(e.g. look at [Rust RFC: impl specialization](https://github.com/rust-lang/rfcs/blob/master/text/1210-impl-specialization.md#hazard-interactions-with-type-checking)\).   
+First of all, specialization contains a lot of edge cases and messes up type checking \(e.g. look at [Rust RFC: impl specialization](https://github.com/rust-lang/rfcs/blob/master/text/1210-impl-specialization.md#hazard-interactions-with-type-checking)\).  
 Secondly, enabling specialization can dramatically slows down type checking, which is against the second design goal.
 {% endhint %}
 
@@ -100,13 +100,11 @@ do
 
 ## Cannot overload with non-function
 
-If a name `X` does not have the type of function, then `X` cannot be overloaded with multiple definitions in the  same scope and vice versa, for example, the following code is invalid:
+If a name `X` does not have the type of function, then `X` cannot be overloaded with multiple definitions in the same scope and vice versa, for example, the following code is invalid:
 
 ```typescript
 let foo = 1
 let foo = \(x: String) => x
 //  ^^^ Error: `foo` is already declared as a non-function
 ```
-
-
 

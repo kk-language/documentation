@@ -6,7 +6,7 @@ description: >-
 
 # Linting Rules
 
-### 1. Function should not take more than two arguments
+## 1. Function should not take more than two arguments
 
 This is to improve readability at function call site.
 
@@ -32,7 +32,7 @@ let slice = \(
 do "Hello".slice({start = 0, end = 1})
 ```
 
-###  2. Naming conventions
+## 2. Naming conventions
 
 <table>
   <thead>

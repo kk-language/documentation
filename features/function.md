@@ -8,7 +8,7 @@ BACKSLASH
   FunctionParameters
   ["->" TypeAnnotation]
   "=>" Expression
-  
+
 FunctionParameters
   = Pattern
   | "(" (Pattern [":" TypeAnnotation])+ ")"
@@ -16,7 +16,7 @@ FunctionParameters
 
 #### Zero argument function
 
-All function must take at least one argument in KK, so to emulate a  zero-argument function, you can use [null](types.md#null), which represent unit type in KK.
+All function must take at least one argument in KK, so to emulate a zero-argument function, you can use [null](types.md#null), which represent unit type in KK.
 
 ```typescript
 let say_hello = \null => "Hello world".print()
@@ -143,8 +143,6 @@ We can write:
 .{ y = 2 }
 ```
 
-
-
 ## Optional Arguments
 
 Optional function arguments is not supported in KK, however we can emulate it with [shorthand record property update](function.md#record-property-update).  
@@ -166,7 +164,7 @@ let buy_food = \(
   }.update()
   do [quantity, pay_by_cash].print()
   null
-  
+
 
 // Usage
 do "apple".buy_food(.{}) // [1, true]
@@ -191,8 +189,4 @@ let factorial
     let true = n.greaterThan(1) else \_ => 1
     n.multiply(n.minus(1).factorial())
 ```
-
-### 
-
-#### 
 

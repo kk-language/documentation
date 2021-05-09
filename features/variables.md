@@ -1,15 +1,15 @@
 # Variables
 
-In KK, variables are immutable by default. 
+In KK, variables are immutable by default.
 
 ```typescript
 let x = 2
-x = 3 // Error 
+x = 3 // Error
 ```
 
-### Scoped variables
+## Scoped variables
 
-Sometimes you want to create some temporary variables that is only relevant for a particular computation.   
+Sometimes you want to create some temporary variables that is only relevant for a particular computation.  
 For example, let say you have this code:
 
 ```typescript
@@ -19,7 +19,6 @@ let main =
   let result = x.concat(y) // x and y not used after this line
   do result.print()
   null
-
 ```
 
 If you want to hide `x` and `y` from the scope below, you can rewrite it as follows:
@@ -30,7 +29,7 @@ let main =
     let x = null.get_x()
     let y = null.get_y()
     x.concat(y)
-  
+
   // x and y cannot be accessed from here
   do result.print()
   null
@@ -48,7 +47,7 @@ let main = let x = a let y = b x.plus(y)
 However, it is recommended that you use the default formatter.
 {% endhint %}
 
-### Binding shadowing
+## Binding shadowing
 
 Sometimes, we want to transform the type of a variable without changing its meaning:
 
@@ -58,7 +57,6 @@ let main =
   let sanitized_input = input.sanitized()
   let parsed_input = input.parse()
   ...
-
 ```
 
 With variable shadowing, you don't have to keep renaming your variables like the code above:
@@ -69,7 +67,6 @@ let main =
   let input = input.sanitize()
   let input = input.parse()
   ...
-
 ```
 
 But of course the example above is contrived, it could have been simply rewritten as :
@@ -78,10 +75,9 @@ But of course the example above is contrived, it could have been simply rewritte
 let main = 
   let input = console.read().sanitize().parse()
   ...
-
 ```
 
-### Mutable references \(WIP\)
+## Mutable references \(WIP\)
 
 Even though variable in KK is immutable by default, it's still possible to have mutable references:
 
@@ -91,7 +87,7 @@ do x.update(.add(1))
 do x.value()
 ```
 
-### Quoted identifier
+## Quoted identifier
 
 Identifier can be quoted with backtick, for example:
 

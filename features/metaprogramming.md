@@ -6,7 +6,6 @@ The meta programming of KK is purely based on [reflections](https://en.wikipedia
 Note, this has a problem, because the metaprogramming should be done at compile time, not run time.
 {% endhint %}
 
-  
 Can be accessed via the `meta` property. For example,
 
 ```typescript

@@ -1,6 +1,6 @@
 # Pattern Matching
 
-Actually pattern match is just a functions in KK. 
+Actually pattern match is just a functions in KK.
 
 ### Multiple variables
 
@@ -38,7 +38,7 @@ result.{
 let and: \boolean, boolean -> boolean = 
   \#True, #True => #True
   \_, _ => #False
-  
+
 let boom = 
   \x: number,
    y: number
@@ -67,7 +67,7 @@ let and
  : (boolean, boolean) => boolean
  = (true, true) => true
  | (_, _) => false
- 
+
 [1,2,3].reduce(
   from = 0, 
   with = (acc, x) => acc.plus(x)
@@ -88,7 +88,7 @@ let and
  = 
  \true, true => true
  \_, _ => false
- 
+
 [1,2,3].reduce(initial: 0, f: 
   (acc, x) => acc.plus(x)
 )
@@ -106,7 +106,7 @@ let and
  = 
  \(true, true) => true
  \(_, _) => false
- 
+
 [1,2,3].reduce(initial: 0, f: 
   \(acc, x) => acc.plus(x)
 )
@@ -114,7 +114,7 @@ result.(
     \#some(_) => 
         let result = "good"
         result.concat(2)
-  
+
     \#none => "bad"
 )
 isCrazy.(\true => "Crazy" \_ => "no")
@@ -130,7 +130,7 @@ result.(
     if Some(_) => 
         let result = "good"
         result.concat(2)
-  
+
     if None() => "bad"
 )()
 isCrazy.(if true => "Crazy" if _ => "no") 
@@ -146,7 +146,7 @@ a
 
 Every cases of a union must be matched if the type is specified. If not it will be a compile error.
 
-For example, 
+For example,
 
 ```typescript
 enum Binary = Zero() One()
@@ -161,7 +161,7 @@ let foo =
 
 ## Any other cases
 
-If you don't want to handle some cases, you can throw it into the `_` branch.   
+If you don't want to handle some cases, you can throw it into the `_` branch.  
 For example:
 
 ```typescript
@@ -189,10 +189,9 @@ let compute_bounds
     )
     \None() => None()
   )
-
 ```
 
-The code can get really unreadable with  this kind of nesting, to improve the situation we can use monadic bindings:
+The code can get really unreadable with this kind of nesting, to improve the situation we can use monadic bindings:
 
 ```typescript
 let computeBounds
@@ -201,7 +200,7 @@ let computeBounds
   let xs = xs.sort()
   let Some(lower) = xs.first()
   let Some(upper) = xs.last()
-  Some({lower, upper}) 
+  Some({lower, upper})
 ```
 
 But in case you still want to handle the non-happy path, you still can do it with `else`:
@@ -217,7 +216,7 @@ let computeBounds = \xs =>
 
 ### Single-case destructuring
 
-If the destructure pattern we defined on the left is exhaustive, then there will be no implicit returns. 
+If the destructure pattern we defined on the left is exhaustive, then there will be no implicit returns.
 
 For example:
 
@@ -280,11 +279,11 @@ For example:
 enum Shape = 
     Square({side: Float})
     None
-    
+
 let area = 
     \Square({side}) => side.`^`(2.0)
     \None => 0.0
-    
+
 do Square({side= 3.0}).area().print() // 9.0
 ```
 
@@ -374,7 +373,7 @@ For example, if we want to match an array with exactly two elements, we can use 
 let [first, ...[second, ...[]]] = myArray
 ```
 
-Array pattern matching in KK is pedantic  \(this section is obsoleted\):
+Array pattern matching in KK is pedantic \(this section is obsoleted\):
 
 | Pattern | Meaning |
 | :--- | :--- |
@@ -396,7 +395,7 @@ For example:
 let is_origin = 
     \{ x = 0, y = 0 } => true
     \_ => false
-    
+
 do { x = 0, y = 0 }.print() // true 
 do { x = 1, y = 2 }.print() // false
 ```
@@ -409,7 +408,7 @@ We can also pattern matching over multiple parameters of a function, for example
 let and = 
   \(true, true) => true
   \(_, _) => false
-  
+
 do true.and(true).print() // true
 do false.and(true).print() // false
 do false.and(false).print() // false

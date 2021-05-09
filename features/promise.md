@@ -1,12 +1,12 @@
 # Promise \(draft\)
 
-### Introduction
+## Introduction
 
-To avoid the problems of colored code, everything expression in KK is a Promise! This would means that there's no distinction between synchronous code and asynchronous code, which is a great improvements for users coming from JavaScript/TypeScript, so now you can focus on writing the plain old business logic in a concise way without asynchrony getting in your way.  
+To avoid the problems of colored code, everything expression in KK is a Promise! This would means that there's no distinction between synchronous code and asynchronous code, which is a great improvements for users coming from JavaScript/TypeScript, so now you can focus on writing the plain old business logic in a concise way without asynchrony getting in your way.
 
 However, this also means that KK is not suitable for writing high performance algorithm, due to the overhead of Promises. Nonetheless, based on my experience, most of the business code is not about writing algorithms, but more of sanitizing data and aggregating data, which are mostly business logic.
 
-### Concurrency
+## Concurrency
 
 Since everything is wrapped in Promise in KK, there's a syntax sugar for running multiple expressions in concurrent.
 
@@ -34,12 +34,12 @@ let fetch_fruits = \null =>
 ```
 {% endcode %}
 
-The difference between `non_concurrent.kk` and `concurrent.kk` is that in `non_concurrent.kk`, the fetching are done one by one, i.e. apples will only be fetched after bananas are fetched successfully.    
-However in `concurrent.kk`, all kinds of fruits will be fetched at the same time.  
+The difference between `non_concurrent.kk` and `concurrent.kk` is that in `non_concurrent.kk`, the fetching are done one by one, i.e. apples will only be fetched after bananas are fetched successfully.  
+However in `concurrent.kk`, all kinds of fruits will be fetched at the same time.
 
-### Racing
+## Racing
 
-To race between multiple values, i.e. the first one to fufill the pattern matching condition is resolved, we can use the `|` operator.  
+To race between multiple values, i.e. the first one to fufill the pattern matching condition is resolved, we can use the `|` operator.
 
 For example,
 
@@ -52,7 +52,7 @@ let eat_food = \null =>
   Ok(food.eat())
 ```
 
-### Idea
+## Idea
 
 Use the `let!` keyword.
 
@@ -76,7 +76,7 @@ let getBomb = new Promise((resolve, reject) => {
 })
 ```
 
-### Auto parallelization
+## Auto parallelization
 
 In KK, promised will be run in parallel whenever possible, for example, `getMentos` and `getCoke` in the code below will run in parallel, because they did not depends on each other.
 
@@ -106,10 +106,9 @@ let friedEgg = \# =>
   let #resolved(egg) = #.breakEgg.await
   let #resolved(friedEgg) = egg.fry.await
   friedEgg
-
 ```
 
-### How to run promise in sequence?
+## How to run promise in sequence?
 
 In some cases, you might really want to run some sequence in even though the promises don't depends on each other.  
 For example, we might think the following code works:
@@ -122,10 +121,9 @@ let createBlock = \amount: number =>
 
 let topup = async \amount: number => 
   // do something
-
 ```
 
-It will not work as expected, because `getLock` and `topup` will be ran in parallel, since `topup` don't depends on the result of `getLock` .   
+It will not work as expected, because `getLock` and `topup` will be ran in parallel, since `topup` don't depends on the result of `getLock` .  
 To fix this problem, we can add a ceremonial `lock` argument to `topup` :
 
 ```typescript
@@ -137,7 +135,6 @@ let createBlock = async \amount: number =>
 
 let topup = async \amount: number, _: Lock => 
   // do something
-
 ```
 
 It might be tedious to write this kind of code, but there's actually benefits to it, for example, whoever want to call `topup` must get the lock first! And the compiler will complain if `lock` is not passed in to `topup`
@@ -147,7 +144,7 @@ It might be tedious to write this kind of code, but there's actually benefits to
 Before you decide to use this approach, maybe you should think deeper why these promises have to run in sequences but still don't depends on each other. It might be a code smell.
 {% endhint %}
 
-### Race
+## Race
 
 This is same as `Promise.race`
 
@@ -155,7 +152,7 @@ This is same as `Promise.race`
 let #resolved(result) = promise1.race(promise2).await
 ```
 
-### Promise creation
+## Promise creation
 
 ```text
 #promise.new(\resolve, reject => ...)
@@ -164,7 +161,7 @@ let #resolved(result) = promise1.race(promise2).await
 123.promiseReject
 ```
 
-### Floating promises
+## Floating promises
 
 Floating promises is not allowed in KK, every promises must be awaited.
 

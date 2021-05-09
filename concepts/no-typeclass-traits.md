@@ -16,5 +16,3 @@ Speaking from my personal experience \(less than a year\) with Haskell and Rust,
 
 And speaking from my experience as a full-stack Typescript developer for over a year, I generally finds that most of the code I've written do not requires the typeclass/traits mechanism, to be honest, most of them don't even requires parametric polymorphism \(a.k.a generics\).
 
-
-

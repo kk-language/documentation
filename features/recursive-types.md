@@ -1,9 +1,9 @@
 # Recursive Types
 
-In KK, aliased type cannot be recursive, as it will result in infinite expansion, therefore, only nominal type can be recursive. 
+In KK, aliased type cannot be recursive, as it will result in infinite expansion, therefore, only nominal type can be recursive.
 
 {% hint style="info" %}
-In  this context, nominal means _named_. 
+In this context, nominal means _named_.
 {% endhint %}
 
 The only nominal type that is definable in KK is [union type](variants-union.md).

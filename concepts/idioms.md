@@ -1,6 +1,6 @@
 # Idioms
 
-### Function  with more than two arguments
+## Function  with more than two arguments
 
 Suppose we have the following function with 3 arguments:
 
@@ -31,9 +31,9 @@ do "Hello world".replace({ old = "world", new = "Hello" })
 
 Therefore, we should always refactor arguments with more than 2 arguments into a 2-argument function.
 
-### Singleton enum
+## Singleton enum
 
-In some cases,  we might want to further differentiate a type into more specific types, for example, consider the following type:
+In some cases, we might want to further differentiate a type into more specific types, for example, consider the following type:
 
 ```typescript
 type People = {
@@ -70,7 +70,7 @@ let b: People = {
 }
 ```
 
-### Encapsulation
+## Encapsulation
 
 To achieve this in KK we have to use [singleton enum](idioms.md#singleton-enum) and [modules](../features/modules.md), with the following steps:
 

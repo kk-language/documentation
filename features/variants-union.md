@@ -25,9 +25,9 @@ let area =
 do Circle({radius = 12}).area().print()
 ```
 
-###  Constructor Disambiguation
+## Constructor Disambiguation
 
-Sometimes, if we have constructors with the same name in different enums, we need to provide type annotations for the compile to disambiguate. 
+Sometimes, if we have constructors with the same name in different enums, we need to provide type annotations for the compile to disambiguate.
 
 Suppose we have two enums:
 

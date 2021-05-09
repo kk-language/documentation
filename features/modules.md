@@ -14,10 +14,10 @@ The import syntax is as follows:
 ```c
 IMPORT 
   = "import"  URL [ALIASES]
-  
+
 ALIASES
   = "where" (ALIAS)+
-  
+
 ALIAS 
   = IDENTIFIER "=" IDENTIFIER
 ```
@@ -70,7 +70,7 @@ Use aliasing to resolve. tbc
 import "./colors.kk" where 
    map = map2,
    map = _
-   
+
 import "./util/date.kk"
 ```
 {% endcode %}
