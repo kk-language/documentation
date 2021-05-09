@@ -8,8 +8,10 @@ description: This page highlights the features of KK.
 2. Type Inference \(Hindley-Milner, but purposefully without auto generalisation\)
 3. Contextual type checking
 4. Sum types \(tagged union / algebraic data type\)
-5. Recursive pattern matching
-6. Pattern matching case exhaustiveness check
+5. Pattern matching 
+   1. recursive
+   2. or-patterns
+   3. case exhaustiveness check
 
 
 
