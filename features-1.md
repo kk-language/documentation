@@ -12,6 +12,7 @@ description: This page highlights the features of KK.
    1. recursive
    2. or-patterns
    3. case exhaustiveness check
+6. Modules \(ECMAScript style, use relative paths\)
 
 
 
