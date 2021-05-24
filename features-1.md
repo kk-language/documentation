@@ -13,6 +13,7 @@ description: This page highlights the features of KK.
    2. or-patterns
    3. case exhaustiveness check
 6. Modules \(ECMAScript style, use relative paths\)
+7. Interface \(a.k.a typeclass/trait\)
 
 
 
