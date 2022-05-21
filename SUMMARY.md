@@ -26,16 +26,15 @@
 * [Recursive Types](features/recursive-types.md)
 * [Pattern Matching](features/pattern-matching.md)
 * [Applicative-Let](features/applicative-let.md)
-* [Promise \(draft\)](features/promise.md)
-* [Modules \(WIP\)](features/modules.md)
-* [External data \(WIP\)](features/external-data.md)
-* [Foreign Function Interface \(FFI\)](features/foreign-function-interface.md)
+* [Promise (draft)](features/promise.md)
+* [Modules (WIP)](features/modules.md)
+* [External data (WIP)](features/external-data.md)
+* [Foreign Function Interface (FFI)](features/foreign-function-interface.md)
 * [Effects](features/effects.md)
-* [Metaprogramming \(WIP\)](features/metaprogramming.md)
+* [Metaprogramming (WIP)](features/metaprogramming.md)
 * [Comments & Documentation](features/comments-and-documentation-wip.md)
-* [Typescript-like Syntax](features/typescript-like-syntax.md)
+* [Grammar](features/typescript-like-syntax.md)
 
 ## Testing
 
 * [Untitled](testing/untitled.md)
-
